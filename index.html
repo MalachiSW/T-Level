@@ -93,11 +93,10 @@
 
        L.control.layers(baseMaps, overlayMaps).addTo(mymap);
        L.control.mousePosition().addTo(mymap);
-       L.geoJSON(geojsonFeature).addTo(mymap);
 
 	mymap.addControl(new L.Control.Fullscreen());
 	var geojsonFeature = {
-  		"type": "FeatureCollection",
+  "type": "FeatureCollection",
   "features": [
     {
       "type": "Feature",
@@ -237,6 +236,7 @@
     }
   ]
 	}
+L.geoJSON(geojsonFeature).addTo(mymap);
 </script>
 
 
