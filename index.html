@@ -38,8 +38,8 @@
 
 
  	var mymap = L.map('mapid', {
-            center: [51.14471, -2.69866],
-	    zoom: 13,
+            center: [51.12965, -2.73257],
+	    zoom: 17,
 	    maxZoom: 20
 	});
 	
@@ -80,10 +80,10 @@
         };
 	
 	var siteData = L.geoJson(null, {
-	    
 	    pointToLayer: function (feature, latlng) {
 		return L.marker(latlng)
             },
+		
             onEachFeature: function(feature, layer) {
 		layer.bindTooltip(
 	            feature.properties.location
