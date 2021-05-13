@@ -34,7 +34,10 @@
 	//	tileSize: 512,
 	//	zoomOffset: -1
 	//}).addTo(mymap);
-	var mymap = L.map('mapid', {
+	
+
+
+ 	var mymap = L.map('mapid', {
             center: [51.14471, -2.69866],
 	    zoom: 13,
 	    maxZoom: 20
@@ -61,33 +64,45 @@
 	    maxZoom: 20,
 	    minZoom: 12,
 	    attribution: 'LiDAR 1m DSM Environment Agency OGL &copy; Crown Copyright 2021'
-        });	
+        });
 	
-	var marker = L.marker([51.14471, -2.69866]).addTo(mymap);
-	marker.bindPopup("<img class='popup' src='tor.jpg'/><br /><b>Glastonbury Tor</b>").openPopup();
+	//var marker = L.marker([51.14471, -2.69866]).addTo(mymap);
+	//marker.bindPopup("<img class='popup' src='tor.jpg'/><br /><b>Glastonbury Tor</b>").openPopup();
         
-	var college = L.marker([51.129852, -2.7334955]).addTo(mymap);
-	college.bindPopup("<b>C Block</b><br>Strode College").openPopup();
+	//var college = L.marker([51.129852, -2.7334955]).addTo(mymap);
+	//college.bindPopup("<b>C Block</b><br>Strode College").openPopup();
 	
-	var college1 = L.marker([51.129952, -2.7334955]).addTo(mymap);
-	
-	
-	
+	//var college1 = L.marker([51.129952, -2.7334955]).addTo(mymap);
+	    
         var baseMaps = {
            "OSM ": osm,
            "Google": google
         };
-	var datafile = omnivore.csv('strode.csv', {
-	    maxZoom: 18,
-	    minZoom: 15
-	}).addTo(mymap);
 	
+	var siteData = L.geoJson(null, {
+	    
+	    pointToLayer: function (feature, latlng) {
+		return L.marker(latlng)
+            },
+            onEachFeature: function(feature, layer) {
+		layer.bindTooltip(
+	            feature.properties.location
+		);
+                layer.bindPopup(
+                     feature.properties.location +
+		     '<br>' + feature.properties.description
+                );
+            }
+        });
+	//var data = omnivore.csv('strode.csv').addTo(mymap);
+	var data = omnivore.csv('strode.csv', null, siteData).on('ready', function() {}).addTo(mymap);
+
         var overlayMaps = {
 	    "Surface": surface,
-            "Marker": marker,
-            "College": college,
-            "College 1": college1,
-	    "Data": datafile
+            //"Marker": marker,
+            //"College": college,
+            //"College 1": college1,
+	    "Data": data
        };
 	
 
